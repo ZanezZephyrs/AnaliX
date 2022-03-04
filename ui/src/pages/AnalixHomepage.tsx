@@ -31,7 +31,7 @@ const AnalixHomePage = () => {
         const body:ApiRequestBody = {
             "text":text
         };
-        const response = await fetch('http://localhost:8000/api/sensitivity', {
+        const response = await fetch('/api/sensitivity', {
             method: "POST",
             body: JSON.stringify(body),
         });
