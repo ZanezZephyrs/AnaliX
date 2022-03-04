@@ -5,13 +5,13 @@ from fastapi.responses import JSONResponse
 from fastapi import APIRouter, Request
 from app.models import SensitivityRequestBody,SensitivityRequestResponse
 from app.settings import settings
-from app.utils.headers import make_openai_header
+from app.util.headers import make_openai_header
 
 router = APIRouter()
 @router.get("/sensitivity")
 def get_sensitivity(request:Request, body:SensitivityRequestBody):
-    text=SensitivityRequestBody["text"]
-    req_header=make_openai_header(settings.openai_secret)
+    text=body.text
+    req_header=make_openai_header(settings.openai_api_key)
 
     req_body={
         "prompt": f"<|endoftext|>{text}\n--\nLabel:",
@@ -21,7 +21,7 @@ def get_sensitivity(request:Request, body:SensitivityRequestBody):
         "logprobs": 10
     }
 
-    response=requests.post(settings.openai_endpoint, headers={req_header}, json={req_body})
+    response=requests.post(settings.openai_endpoint, headers=req_header, json=req_body)
 
     if response.status_code != 200:
         return JSONResponse(
@@ -31,7 +31,7 @@ def get_sensitivity(request:Request, body:SensitivityRequestBody):
             }
         )
 
-    assigned_label=response.json()["choices"]["text"]
+    assigned_label=response.json()["choices"][0]["text"]
 
     if assigned_label == "0":
         message="the content was judged safe"

@@ -1,13 +1,16 @@
-from fastapi import FastAPI
+import pkg_resources
 
+from fastapi import FastAPI
 from app.routers import sensitivity
+from app.settings import settings
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
 
 app.include_router(sensitivity.router, tags=["sensitivity"], prefix="/api")
 
-if settings.development:
+if not settings.development:
     app.mount(
         "/static",
         StaticFiles(directory=pkg_resources.resource_filename(__name__, "static")),
