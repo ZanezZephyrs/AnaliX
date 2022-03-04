@@ -8,7 +8,7 @@ from app.settings import settings
 from app.util.headers import make_openai_header
 
 router = APIRouter()
-@router.get("/sensitivity")
+@router.post("/sensitivity")
 def get_sensitivity(request:Request, body:SensitivityRequestBody):
     text=body.text
     req_header=make_openai_header(settings.openai_api_key)
