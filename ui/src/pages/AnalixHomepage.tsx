@@ -69,7 +69,7 @@ const AnalixHomePage = () => {
         </InputArea> 
         {!loading && textInfo && (
             <AnalixResponseArea label={textInfo.label}>
-                <AnalixResponseText><b>Scam Result</b></AnalixResponseText>
+                <AnalixResponseText><b>Scan Result</b></AnalixResponseText>
                 <AnalixResponseText>label:{textInfo.human_readable_label}</AnalixResponseText>
                 <AnalixResponseText>{textInfo.message}</AnalixResponseText>
             </AnalixResponseArea>
