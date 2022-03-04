@@ -8,7 +8,7 @@ from app.settings import settings
 from app.util.headers import make_openai_header
 
 router = APIRouter()
-@router.get("/sensitivity")
+@router.post("/sensitivity")
 def get_sensitivity(request:Request, body:SensitivityRequestBody):
     text=body.text
     req_header=make_openai_header(settings.openai_api_key)
@@ -37,10 +37,10 @@ def get_sensitivity(request:Request, body:SensitivityRequestBody):
         message="the content was judged safe"
         human_label="safe"
     elif assigned_label == "1":
-        message="the content was judged sensitive, it may disccuss a delicated subject and should be handled carefully"
+        message="the content was judged sensitive, it may disccuss a delicate subject and should be handled carefully"
         human_label="sensitive"
     elif assigned_label == "2":
-        message="the content was judged unsafe, it may contain unappropriate language, offensive statements amount other things "
+        message="the content was judged unsafe, it may contain inappropriate language, offensive statements, among other things "
         human_label="unsafe"
     else:
         message="the content could not be classified, this usually means that the content treats something that the model could not handle, be careful"
