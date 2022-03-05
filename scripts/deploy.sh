@@ -11,7 +11,7 @@ mv $ABSOLUTE_BUILD_PATH $STATIC_PATH
 mv $STATIC_PATH/static/* $STATIC_PATH
 
 
-pip install -r api/requirements.txt -q --upgrade
+pip install -r requirements.txt -q --upgrade
 ps aux | grep "uvicorn" | awk '{print $2}' | xargs kill
 sleep 10 # Buffer to make sure servers stop
 cd api
