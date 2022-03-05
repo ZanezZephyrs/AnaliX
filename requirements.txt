@@ -1,0 +1,6 @@
+alembic==1.6.5
+fastapi[all]==0.52.0
+requests==2.27.1
+pydantic[dotenv]
+gunicorn
+
