@@ -1,0 +1,1 @@
+web: cd api && gunicorn -k uvicorn.workers.UvicornWorker app.main:app
